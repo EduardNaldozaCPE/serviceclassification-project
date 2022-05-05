@@ -1,0 +1,16 @@
+body {
+    background-color: #298678;
+    margin: 0;
+}
+
+.title {
+    font-family: Helvetica, Arial, sans-serif;
+    color: #ededed;
+    margin: 20px;
+}
+
+.cvs {
+    border: 1px solid #ededed;
+    margin: 0;
+}
+
