@@ -8,22 +8,51 @@ class GuiButton1 {
         this.text = text;
         this.opacity = 0;
         this.vel = 10;
+        this.state = 0; //0 - Instantiated ; 1 - Stable; 2 - To be deleted
     }
+
     draw = () => {
-        c.beginPath();
-        c.strokeStyle = `rgba(221,221,221,${Math.pow(this.opacity,2)/10000}`;
-        c.rect(this.x, this.y, this.w, this.h);
-        c.lineWidth = 2;
-        c.stroke();
-        if (this.opacity < 100) {
-            this.opacity += 1;
-            this.y -= this.vel;
-            console.log(this.y);
-            this.vel -= this.vel/15;
+        // console.log(this.opacity + " " + this.state);
+        switch(this.state) {
+            case 0:
+                c.beginPath();
+                c.strokeStyle = `rgba(221,221,221,${Math.pow(this.opacity,2)/10000}`;
+                c.rect(this.x, this.y, this.w, this.h);
+                c.lineWidth = 2;
+                c.stroke();
+                if (this.opacity < 100) {
+                    this.opacity += 1;
+                    this.y -= this.vel;
+                    this.vel -= this.vel/15;
+                } else {
+                    this.state = 1;
+                }
+                break;
+            case 1:
+                c.beginPath();
+                c.strokeStyle = `rgba(221,221,221,1)`;
+                c.rect(this.x, this.y, this.w, this.h);
+                c.lineWidth = 2;
+                c.stroke();
+                this.vel = 0;
+                this.opacity = 100;
+                break;
+            case 2:
+                c.beginPath();
+                c.strokeStyle = `rgba(221,221,221,${Math.pow(this.opacity,2)/10000}`;
+                c.rect(this.x, this.y, this.w, this.h);
+                c.lineWidth = 2;
+                c.stroke();
+                this.opacity -= 2;
+                this.y += -this.vel;
+                // console.log(this.y + " " + this.vel);
+                this.vel += 0.1;
+                break;
         }
     }
 
-    update = () => {
+    delete = () => {
+        this.state = 2;
     };
 
     hovering = () => {
@@ -45,20 +74,46 @@ class Buttontext {
         this.msg = msg;
         this.opacity = 0;
         this.vel = 10;
+        this.state = 0; //0 - Instantiated ; 1 - Stable; 2 - To be deleted
     }
 
     draw = () => {
-        c.font = `${this.size}px ${this.font}`
-        c.fillStyle = `rgb(221,221,221,${Math.pow(this.opacity,2)/10000})`;
-        c.textAlign = "center"
-        c.fillText(this.msg, this.x, this.y, this.w)
-        if (this.opacity < 100) {
-            this.opacity += 1;
-            this.y -= this.vel;
-            console.log(this.y);
-            this.vel -= this.vel/15;
+        // console.log(this.state);
+        switch (this.state) {
+            case 0:
+                c.font = `${this.size}px ${this.font}`
+                c.fillStyle = `rgb(221,221,221,${Math.pow(this.opacity,2)/10000})`;
+                c.textAlign = "center"
+                c.fillText(this.msg, this.x, this.y, this.w)
+                if (this.opacity < 100) {
+                    this.opacity += 1;
+                    this.y -= this.vel;
+                    this.vel -= this.vel/15;
+                } else {
+                    this.state = 1;
+                }
+                break;
+            case 1:
+                c.font = `${this.size}px ${this.font}`
+                c.fillStyle = `rgb(221,221,221,1)`;
+                c.textAlign = "center"
+                c.fillText(this.msg, this.x, this.y, this.w)
+                break;
+            case 2:
+                c.font = `${this.size}px ${this.font}`
+                c.fillStyle = `rgb(221,221,221,${Math.pow(this.opacity,2)/10000})`;
+                c.textAlign = "center"
+                c.fillText(this.msg, this.x, this.y, this.w)
+                this.opacity -= 2;
+                this.y += -this.vel;
+                // console.log(this.y + " " + this.vel);
+                this.vel += 0.1;
+                break;
         }
     }
+    delete = () => {
+        this.state = 2;
+    };
 
 }
 
@@ -75,10 +130,10 @@ class Titletext {
 
     draw = () => {
         c.font = `bold ${this.size}px ${this.font}`
-        c.fillStyle = `rgb(221,221,221,${Math.pow(this.opacity,2)/1000})`;
+        c.fillStyle = `rgb(221,221,221,${Math.pow(this.opacity,2)/10000})`;
         c.textAlign = "center"
         c.fillText(this.msg, this.x, this.y, this.w)
-        if (this.opacity < 50) {
+        if (this.opacity < 100) {
             this.opacity += 1;
         }
     }
