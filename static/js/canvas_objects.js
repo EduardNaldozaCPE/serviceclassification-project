@@ -1,184 +1,108 @@
-class GuiButton1 {
-    constructor(x, y, w, h, colour, text) {
-        this.x = x;
-        this.y = y+150;
-        this.w = w;
-        this.h = h;
-        this.colour = colour;
-        this.text = text;
-        this.opacity = 0;
-        this.vel = 10;
-        this.state = 0; //0 - Instantiated ; 1 - Stable; 2 - To be deleted
-    }
+// Declaring Objects
+titleheight = undefined;
+if (canvas.width > 700) {
+    titleheight = canvas.width*0.23;
+} else {
+    titleheight = canvas.width*0.25;
+}
+subheight = undefined;
+if (canvas.width > 780) {
+    subheight = canvas.width*0.15;
+} else {
+    subheight = canvas.width*0.3;
+}
 
-    draw = () => {
-        // console.log(this.opacity + " " + this.state);
-        switch(this.state) {
-            case 0:
-                c.beginPath();
-                c.strokeStyle = `rgba(221,221,221,${Math.pow(this.opacity,2)/10000}`;
-                c.rect(this.x, this.y, this.w, this.h);
-                c.lineWidth = 2;
-                c.stroke();
-                if (this.opacity < 100) {
-                    this.opacity += 1;
-                    this.y -= this.vel;
-                    this.vel -= this.vel/15;
-                } else {
-                    this.state = 1;
+//BACKGROUND LINE ANIMATION (ALL STATES)
+function newLineArray() {
+    let lineArray = [];
+    for (let i=0; i<50; i++){
+        var x1 = (innerWidth*Math.random())-1;
+        var y1 = (innerHeight*Math.random())-1;
+        var x2 = (innerWidth*Math.random())-1;
+        var y2 = (innerHeight*Math.random())-1;
+        var dx1 = posneg()*Math.random()/3;
+        var dx2 = posneg()*Math.random()/3;
+        var dy1 = posneg()*Math.random()/3;
+        var dy2 = posneg()*Math.random()/3;
+        let r = Math.floor(Math.random()*255);
+        let g = Math.floor(Math.random()*255);
+        // let b = Math.floor(Math.random()*255);
+        // var colour = `rgb(${r}, ${g}, ${b})`
+        var colour = `#359085`
+        lineArray.push(new Backline(x1,x2,y1,y2,dx1,dx2,dy1,dy2,colour))
+    }
+    return lineArray;
+}
+
+var instanceList = [];
+function startInstanceList(state) {
+    switch (state) {
+        case 0:
+            //TITLE (STATE 0)
+            instanceList.push(new Titletext(
+                (canvas.width/2),
+                titleheight,
+                (canvas.width*0.75),
+                "Helvetica",
+                (canvas.width*0.04),
+                "SIDRA SERVICE CLASSIFICATION APP"
+            ));
+            //START BUTTON TEXT (STATE 0)
+            instanceList.push(new GuiButton1(
+                (canvas.width/2)-(200/2),
+                (canvas.height/2)-(50/2),
+                200,
+                50
+            ));
+            // START BUTTON FRAME (STATE 0)
+            instanceList.push(new Buttontext(
+                (canvas.width/2),
+                (canvas.height/2)+7,
+                200,
+                "Helvetica",
+                20,
+                "Select Service"
+            ));
+            break;
+
+        case 1:
+            let count = 1;
+            for (let j=1; j<=3; j++){
+                for (let i=1; i<=3; i++){
+                    //BUTTON 1 FRAME (STATE 1)
+                    instanceList.push(new GuiButton1(
+                        ((i*canvas.width)/4)-((canvas.width/4.5)/2),
+                        (canvas.height/3)+(j*canvas.height/8)-(50/2),
+                        canvas.width/4.5,
+                        50
+                    ));
+                    //BUTTON 1 TEXT (STATE 1)
+                    instanceList.push(new Buttontext(
+                        ((i*canvas.width)/4),
+                        (canvas.height/3)+(j*canvas.height/8)+7,
+                        canvas.width/4.5,
+                        "Helvetica",
+                        20,
+                        `Service ${count}`
+                    ));
+                    count++;
                 }
-                break;
-            case 1:
-                c.beginPath();
-                c.strokeStyle = `rgba(221,221,221,1)`;
-                c.rect(this.x, this.y, this.w, this.h);
-                c.lineWidth = 2;
-                c.stroke();
-                this.vel = 0;
-                this.opacity = 100;
-                break;
-            case 2:
-                c.beginPath();
-                c.strokeStyle = `rgba(221,221,221,${Math.pow(this.opacity,2)/10000}`;
-                c.rect(this.x, this.y, this.w, this.h);
-                c.lineWidth = 2;
-                c.stroke();
-                this.opacity -= 2;
-                this.y += -this.vel;
-                // console.log(this.y + " " + this.vel);
-                this.vel += 0.1;
-                break;
-        }
-    }
+            }
+            
+            instanceList.push(new Titletext(
+                (canvas.width/4),
+                subheight,
+                (canvas.width*0.75),
+                "Helvetica",
+                (canvas.width*0.04),
+                "Select Service"
+            ));
 
-    delete = () => {
-        this.state = 2;
-    };
-
-    hovering = () => {
-        if (isHovering(mpos.x, mpos.y, this.x, this.y, this.w, this.h)) {
-            return true;
-        } else {
-            return false;
-        }
+            instanceList.push(new Rightbutton(
+                (canvas.width/2) + canvas.width/3, (canvas.height/2) + canvas.height/3
+            ))
+            break;
     }
 }
 
-class Buttontext {
-    constructor(x,y,w,font,size,msg){
-        this.x = x;
-        this.y = y+150;
-        this.w = w;
-        this.font = font;
-        this.size = size;
-        this.msg = msg;
-        this.opacity = 0;
-        this.vel = 10;
-        this.state = 0; //0 - Instantiated ; 1 - Stable; 2 - To be deleted
-    }
-
-    draw = () => {
-        // console.log(this.state);
-        switch (this.state) {
-            case 0:
-                c.font = `${this.size}px ${this.font}`
-                c.fillStyle = `rgb(221,221,221,${Math.pow(this.opacity,2)/10000})`;
-                c.textAlign = "center"
-                c.fillText(this.msg, this.x, this.y, this.w)
-                if (this.opacity < 100) {
-                    this.opacity += 1;
-                    this.y -= this.vel;
-                    this.vel -= this.vel/15;
-                } else {
-                    this.state = 1;
-                }
-                break;
-            case 1:
-                c.font = `${this.size}px ${this.font}`
-                c.fillStyle = `rgb(221,221,221,1)`;
-                c.textAlign = "center"
-                c.fillText(this.msg, this.x, this.y, this.w)
-                break;
-            case 2:
-                c.font = `${this.size}px ${this.font}`
-                c.fillStyle = `rgb(221,221,221,${Math.pow(this.opacity,2)/10000})`;
-                c.textAlign = "center"
-                c.fillText(this.msg, this.x, this.y, this.w)
-                this.opacity -= 2;
-                this.y += -this.vel;
-                // console.log(this.y + " " + this.vel);
-                this.vel += 0.1;
-                break;
-        }
-    }
-    delete = () => {
-        this.state = 2;
-    };
-
-}
-
-class Titletext {
-    constructor(x,y,w,font,size,msg){
-        this.x = x;
-        this.y = y;
-        this.w = w;
-        this.font = font;
-        this.size = size;
-        this.msg = msg;
-        this.opacity = 0;
-    }
-
-    draw = () => {
-        c.font = `bold ${this.size}px ${this.font}`
-        c.fillStyle = `rgb(221,221,221,${Math.pow(this.opacity,2)/10000})`;
-        c.textAlign = "center"
-        c.fillText(this.msg, this.x, this.y, this.w)
-        if (this.opacity < 100) {
-            this.opacity += 1;
-        }
-    }
-
-}
-
-class Backline {
-    constructor(x1, x2, y1, y2, dx1, dx2, dy1, dy2, colour) {
-        this.x1 = x1;
-        this.x2 = x2;
-        this.y1 = y1;
-        this.y2 = y2;
-        this.dx1 = dx1;
-        this.dx2 = dx2;
-        this.dy1 = dy1;
-        this.dy2 = dy2;
-        this.colour = colour;
-        this.fresh = true;
-    }
-
-    draw = () => {
-        c.beginPath();
-        c.moveTo(this.x1, this.y1);
-        c.lineTo(this.x2, this.y2);
-        c.lineWidth = 1;
-        c.strokeStyle = this.colour;
-        c.stroke();
-    };
-
-    update = () => {
-        if (this.x1 > innerWidth || this.x1 < 0) {
-            this.dx1 = -this.dx1;
-        }
-        if (this.x2 > innerWidth || this.x2 < 0) {
-            this.dx2 = -this.dx2;
-        }
-        if (this.y1 > innerHeight || this.y1 < 0) {
-        }
-        if (this.y2 > innerHeight || this.y2 < 0) {
-            this.dy2 = -this.dy2;
-        }
-
-        this.x1 += this.dx1;
-        this.x2 += this.dx2;
-        this.y1 += this.dy1;
-        this.y2 += this.dy2;
-    };
-}
+startInstanceList(currentState);

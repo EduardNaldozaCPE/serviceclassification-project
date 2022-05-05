@@ -1,3 +1,4 @@
+lineArray = newLineArray();
 canvasState = new c_state(0);
 
 // Instantiating Objects in Animation
@@ -12,27 +13,26 @@ function animation(frame) {
         lineArray[i].draw();
         lineArray[i].update();
     }
-
+    //Animate canvas states
+    currentState = canvasState.state;
     canvasState.animate()
-    // //Create Title
-    // title.draw();
-
-    // //Create other objects 
-    // if(frame_floored >= 30){
-    //     instanceList.forEach((instanceobj, i) => {
-    //         instanceobj.draw();
-    //         if (instanceobj.opacity < 0) {
-    //             instanceList.splice(i, 1);
-    //         }
-    //     });
-    // }
 }
 
+
+//ONCLICK
 canvas.addEventListener('click', () => {
-    if (button1.hovering()) {
-        console.log(instanceList);
-        instanceList[0].delete();
-        instanceList[1].delete();
+    switch (currentState) {
+        case 0:
+            if (instanceList[1].hovering()) {
+                // console.log(instanceList);
+                instanceList[2].delete();
+                instanceList[1].delete();
+                instanceList[0].delete();
+            }
+            break;
+    
+        case 1:
+            break;
     }
 });
 
