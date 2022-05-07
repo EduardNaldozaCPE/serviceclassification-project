@@ -13,24 +13,17 @@ function animation(frame) {
     //     lineArray[i].update();
     // }
     //Animate canvas states
-    canvasState.animate()
+    if (pageState == 0) {
+        canvasState.animate()
+    } else {
+        console.log("Loading next page");
+    }
 }
 
 
 //ONCLICK
 canvas.addEventListener('click', () => {
-    switch (getPath_last()) {
-        case "index.html":
-            if (instanceList[1].hovering()) {
-                instanceList[2].delete();
-                instanceList[1].delete();
-                instanceList[0].delete();
-            }
-            break;
-    
-        case 1:
-            break;
-    }
+    pagecontent.action();
 });
 
 // Running Animation

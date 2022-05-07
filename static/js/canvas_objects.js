@@ -35,5 +35,6 @@ function newLineArray() {
 }
 
 //Gather Objects from page js
-var instanceList = startInstanceList();
+pagecontent = new Page();
+var instanceList = pagecontent.startInstanceList();
 console.log(instanceList);

@@ -1,14 +1,14 @@
 class GuiButton1 {
-    constructor(x, y, w, h, colour, text) {
+    constructor(x, y, w, h, colour, url) {
         this.x = x;
         this.y = y+150;
         this.w = w;
         this.h = h;
         this.colour = colour;
-        this.text = text;
         this.opacity = 0;
         this.vel = 10;
         this.state = 0; //0 - Instantiated ; 1 - Stable; 2 - To be deleted
+        this.url = url;
     }
 
     draw = () => {
@@ -38,16 +38,21 @@ class GuiButton1 {
                 this.opacity = 100;
                 break;
             case 2:
-                c.beginPath();
-                c.strokeStyle = `rgba(221,221,221,${Math.pow(this.opacity,2)/10000}`;
-                c.rect(this.x, this.y, this.w, this.h);
-                c.lineWidth = 2;
-                c.stroke();
-                this.opacity -= 2;
-                this.y += -this.vel;
-                // console.log(this.y + " " + this.vel);
-                this.vel += 0.1;
-                break;
+                if (this.opacity <= 0) {
+                    location.href = this.url;
+                    pageState = 1;
+                } else {
+                    c.beginPath();
+                    c.strokeStyle = `rgba(221,221,221,${Math.pow(this.opacity,2)/10000}`;
+                    c.rect(this.x, this.y, this.w, this.h);
+                    c.lineWidth = 2;
+                    c.stroke();
+                    this.opacity -= 2;
+                    this.y += -this.vel;
+                    // console.log(this.y + " " + this.vel);
+                    this.vel += 0.1;
+                    break;
+                }
         }
     }
 
@@ -100,14 +105,16 @@ class Buttontext {
                 c.fillText(this.msg, this.x, this.y, this.w)
                 break;
             case 2:
-                c.font = `${this.size}px ${this.font}`
-                c.fillStyle = `rgb(221,221,221,${Math.pow(this.opacity,2)/10000})`;
-                c.textAlign = "center"
-                c.fillText(this.msg, this.x, this.y, this.w)
-                this.opacity -= 2;
-                this.y += -this.vel;
-                // console.log(this.y + " " + this.vel);
-                this.vel += 0.1;
+                if (this.opacity > 0) {
+                    c.font = `${this.size}px ${this.font}`
+                    c.fillStyle = `rgb(221,221,221,${Math.pow(this.opacity,2)/10000})`;
+                    c.textAlign = "center"
+                    c.fillText(this.msg, this.x, this.y, this.w)
+                    this.opacity -= 2;
+                    this.y += -this.vel;
+                    // console.log(this.y + " " + this.vel);
+                    this.vel += 0.1;
+                }
                 break;
         }
     }
@@ -149,12 +156,14 @@ class Titletext {
                 break;
 
             case 2:
-                c.font = `bold ${this.size}px ${this.font}`
-                c.fillStyle = `rgb(221,221,221,${Math.pow(this.opacity,2)/10000})`;
-                c.textAlign = "center";
-                c.fillText(this.msg, this.x, this.y, this.w);
-                // console.log(this.opacity);
-                this.opacity -= 1;
+                if (this.opacity > 0) {
+                    c.font = `bold ${this.size}px ${this.font}`
+                    c.fillStyle = `rgb(221,221,221,${Math.pow(this.opacity,2)/10000})`;
+                    c.textAlign = "center";
+                    c.fillText(this.msg, this.x, this.y, this.w);
+                    // console.log(this.opacity);
+                    this.opacity -= 1;
+                }
                 break;
         }
     }
