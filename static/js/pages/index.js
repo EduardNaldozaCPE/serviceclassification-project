@@ -2,6 +2,7 @@ class Page{
     constructor(){
         this.list = [];
     }
+    initpage = () => {}
     startInstanceList = () => {
         var titleheight = undefined;
         if (canvas.width > 700) {
@@ -32,7 +33,8 @@ class Page{
             200,
             50,
             "#fff",
-            "select.html"
+            "select.html",
+            btntext
         ));
         // TITLE
         this.list.push(new Titletext(

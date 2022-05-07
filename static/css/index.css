@@ -100,3 +100,22 @@ a.hover {
         margin-bottom: 1.2vh;
     }
 }
+#in-text {
+    position: fixed;
+    width: 20%;
+    height: 10%;
+    font-size: 3rem;
+    color: #ededed;
+    text-align: center;
+    left: 50%;
+    top: 45%;
+    transform: translate(-50%, 0%);
+    position: fixed;
+    background: rgba(255, 255, 255, 0.2);
+    border-style: solid;
+    border-color: #ededed;
+}
+
+.hidden {
+    display: none;
+}

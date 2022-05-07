@@ -2,18 +2,38 @@ class Page{
     constructor(){
         this.list = [];
     }
+    initpage = () => {}
     startInstanceList = () => {
         var subheight = undefined;
         if (canvas.width > 780) {
             subheight = canvas.width*0.15;
         } else {
-            subheight = 4*canvas.height/6;
+            subheight = 2*canvas.height/6;
         }
-
-        this.list = [];
-        let count = 1;
+        var servicelist = {
+            name:[
+                "CAMHS", "Genetics", "ENT", 
+                "Plastic Surgery", "Dermatology", "Gynecology", 
+                "Emergency Services", "Clinical Assessment", "Comorbidity Assessment"
+            ],
+            url:[
+                "ageform.html", "index.html", "index.html", 
+                "index.html", "index.html", "index.html", 
+                "index.html", "index.html", "index.html"
+            ]
+        };
+        let count = 0;
         for (let j=1; j<=3; j++){
             for (let i=1; i<=3; i++){
+                let btntext = new Buttontext(
+                    ((i*canvas.width)/4),
+                    (canvas.height/3)+(j*canvas.height/8)+7,
+                    canvas.width/4.5,
+                    "Helvetica",
+                    20,
+                    servicelist.name[count]
+                );
+                this.list.push(btntext);
                 //BUTTON 1 FRAME (STATE 1)
                 this.list.push(new GuiButton1(
                     ((i*canvas.width)/4)-((canvas.width/4.5)/2),
@@ -21,16 +41,8 @@ class Page{
                     canvas.width/4.5,
                     50,
                     "#fff",
-                    'index.html'
-                ));
-                //BUTTON 1 TEXT (STATE 1)
-                this.list.push(new Buttontext(
-                    ((i*canvas.width)/4),
-                    (canvas.height/3)+(j*canvas.height/8)+7,
-                    canvas.width/4.5,
-                    "Helvetica",
-                    20,
-                    `Service ${count}`
+                    servicelist.url[count],
+                    btntext
                 ));
                 count++;
             }
@@ -52,10 +64,13 @@ class Page{
     }
     
     action = () => {
-        if (this.list[0].hovering()) {
-            this.list.forEach(item => {
-                item.delete();
-            });
-        }
+        this.list.forEach(element => {
+            if (element.name == "GuiButton1"){
+                if (element.hovering()) {
+                    localStorage.setItem('branch',element.partner.msg);
+                    element.delete();
+                }
+            }
+        });
     }
 }

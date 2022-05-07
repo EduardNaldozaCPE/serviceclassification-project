@@ -22,3 +22,9 @@ function getPath_last() {
 function getPath_secondlast() {
     return location.pathname.split("/")[location.pathname.split("/").length-2]
 }
+
+function writeLS() {
+    localStorage.setItem('clientAge',undefined);
+}
+
+writeLS();

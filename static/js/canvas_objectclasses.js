@@ -1,5 +1,6 @@
 class GuiButton1 {
-    constructor(x, y, w, h, colour, url) {
+    constructor(x, y, w, h, colour, url, partner) {
+        this.name = "GuiButton1";
         this.x = x;
         this.y = y+150;
         this.w = w;
@@ -9,6 +10,7 @@ class GuiButton1 {
         this.vel = 10;
         this.state = 0; //0 - Instantiated ; 1 - Stable; 2 - To be deleted
         this.url = url;
+        this.partner = partner;
     }
 
     draw = () => {
@@ -58,6 +60,7 @@ class GuiButton1 {
 
     delete = () => {
         this.state = 2;
+        this.partner.delete();
     };
 
     hovering = () => {
@@ -71,6 +74,7 @@ class GuiButton1 {
 
 class Buttontext {
     constructor(x,y,w,font,size,msg){
+        this.name = "Buttontext";
         this.x = x;
         this.y = y+150;
         this.w = w;
@@ -126,6 +130,7 @@ class Buttontext {
 
 class Titletext {
     constructor(x,y,w,font,size,msg){
+        this.name = "Titletext";
         this.x = x;
         this.y = y;
         this.w = w;
@@ -175,6 +180,7 @@ class Titletext {
 
 class Backline {
     constructor(x1, x2, y1, y2, dx1, dx2, dy1, dy2, colour) {
+        this.name = "Backline";
         this.x1 = x1;
         this.x2 = x2;
         this.y1 = y1;
@@ -218,6 +224,7 @@ class Backline {
 
 class SubtitleText {
     constructor(x,y,w,font,size,msg){
+        this.name = "SubtitleText";
         this.x = x;
         this.y = y;
         this.w = w;
@@ -265,6 +272,7 @@ class SubtitleText {
 
 class Rightbutton {
     constructor(x,y){
+        this.name = "Rightbutton";
         this.x = x;
         this.y = y;
     }
@@ -282,6 +290,7 @@ class Rightbutton {
 
 class Leftbutton {
     constructor(x,y){
+        this.name = "Leftbutton";
         this.x = x;
         this.y = y;
     }
