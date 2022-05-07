@@ -1,6 +1,5 @@
-class c_state {
-    constructor(state) {
-        this.state = state;
+class c_page {
+    constructor() {
     }
     
     animate = () => {
@@ -10,24 +9,23 @@ class c_state {
             instanceList.forEach((instanceobj, i) => {
                 instanceobj.draw();
                 //STATES
-                switch (this.state) { 
-                case 0: //TITLE SCREEN
+                switch (getPath_last()) { 
+                case 'index.html': //TITLE SCREEN
                     //Create other objects 
                     //When Button has disappeared, destroy each disappearing object and move to next state
                     if (instanceobj.opacity < 0) {
                         instanceList.splice(i, 1);
                         if(instanceList.length == 0) {
-                            this.changeState(1);
+                            location.href = './select.html';
                         }
                     }
                     break;
             
-                case 1: //SELECT SERVICE SCREEN
+                case 'select.html': //SELECT SERVICE SCREEN
                         //When Button has disappeared, destroy each disappearing object and move to next state
                     if (instanceobj.opacity < 0) {
                         instanceList.splice(i, 1);
                         if(instanceList.length == 0) {
-                            this.changeState(2);
                         }
                     }
                     break;
@@ -36,8 +34,7 @@ class c_state {
         }
     }
 
-    changeState = (state) => {
-        startInstanceList(state);
-        this.state = state;
+    changePage = (page) => {
+        startInstanceList(page);
     }
 }

@@ -1,8 +1,7 @@
 var canvas = document.querySelector('canvas');
-currentState = 0;
 /* 
 
-STATES
+PAGES
 
 0   Title Page
 1   Select Service (Page 1)
