@@ -3,10 +3,22 @@ class Page{
         this.list = [];
     }
     startInstanceList = () => {
-        //TITLE
+        var titleheight = undefined;
+        if (canvas.width > 700) {
+            titleheight = canvas.width*0.23;
+        } else {
+            titleheight = canvas.width*0.25;
+        }
+        var startbuttonheight = undefined;
+        if (canvas.height > 746) {
+            startbuttonheight = canvas.height/2;
+        } else {
+            startbuttonheight = 4*canvas.height/6;
+        }
+        // START BUTTON TEXT
         let btntext = new Buttontext(
             (canvas.width/2),
-            (canvas.height/2)+7,
+            (startbuttonheight)+7,
             200,
             "Helvetica",
             20,
@@ -16,13 +28,13 @@ class Page{
         //START BUTTON FRAME
         this.list.push(new GuiButton1(
             (canvas.width/2)-(200/2),
-            (canvas.height/2)-(50/2),
+            startbuttonheight-(50/2),
             200,
             50,
             "#fff",
             "select.html"
         ));
-        // START BUTTON TEXT
+        // TITLE
         this.list.push(new Titletext(
             (canvas.width/2),
             titleheight,

@@ -276,6 +276,8 @@ class Rightbutton {
         c.lineTo(this.x, this.y);
         c.fill();
     }
+
+    delete = () => {}
 }
 
 class Leftbutton {
@@ -291,4 +293,5 @@ class Leftbutton {
         c.lineTo(this.x, this.y);
         c.fill();
     }
+    delete = () => {}
 }

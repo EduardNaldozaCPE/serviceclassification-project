@@ -3,6 +3,13 @@ class Page{
         this.list = [];
     }
     startInstanceList = () => {
+        var subheight = undefined;
+        if (canvas.width > 780) {
+            subheight = canvas.width*0.15;
+        } else {
+            subheight = 4*canvas.height/6;
+        }
+
         this.list = [];
         let count = 1;
         for (let j=1; j<=3; j++){
@@ -46,9 +53,9 @@ class Page{
     
     action = () => {
         if (this.list[0].hovering()) {
-            this.list[2].delete();
-            this.list[1].delete();
-            this.list[0].delete();
+            this.list.forEach(item => {
+                item.delete();
+            });
         }
     }
 }

@@ -1,17 +1,3 @@
-// Declaring Objects
-titleheight = undefined;
-if (canvas.width > 700) {
-    titleheight = canvas.width*0.23;
-} else {
-    titleheight = canvas.width*0.25;
-}
-subheight = undefined;
-if (canvas.width > 780) {
-    subheight = canvas.width*0.15;
-} else {
-    subheight = canvas.width*0.3;
-}
-
 //BACKGROUND LINE ANIMATION
 function newLineArray() {
     let lineArray = [];

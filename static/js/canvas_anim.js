@@ -12,6 +12,7 @@ function animation(frame) {
     //     lineArray[i].draw();
     //     lineArray[i].update();
     // }
+    
     //Animate canvas states
     if (pageState == 0) {
         canvasState.animate()
