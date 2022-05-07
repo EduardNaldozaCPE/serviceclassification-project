@@ -26,5 +26,3 @@ function getPath_secondlast() {
 function writeLS() {
     localStorage.setItem('clientAge',undefined);
 }
-
-writeLS();

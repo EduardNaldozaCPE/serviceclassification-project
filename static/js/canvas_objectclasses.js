@@ -41,6 +41,7 @@ class GuiButton1 {
                 break;
             case 2:
                 if (this.opacity <= 0) {
+                    console.log(this.url);
                     location.href = this.url;
                     pageState = 1;
                 } else {

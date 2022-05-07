@@ -7,12 +7,12 @@ function animation(frame) {
     requestAnimationFrame(animation);
     c.clearRect(0,0,innerWidth,innerHeight);
     
-    //Create Background Lines 
-    // for (let i=0; i<lineArray.length; i++){
-    //     lineArray[i].draw();
-    //     lineArray[i].update();
-    // }
-    
+    // Create Background Lines 
+    for (let i=0; i<lineArray.length; i++){
+        lineArray[i].draw();
+        lineArray[i].update();
+    }
+
     //Animate canvas states
     if (pageState == 0) {
         canvasState.animate()

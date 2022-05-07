@@ -26,7 +26,6 @@ class Page{
             (canvas.width*0.04),
             "Enter your age"
         ));
-        // console.log(this.list);
         // CONTINUE BUTTON TEXT
         let btntext = new Buttontext(
             (canvas.width/2),
@@ -45,7 +44,7 @@ class Page{
             200,
             50,
             "#fff",
-            "select.html",
+            'decider.html',
             btntext
         ));
         return this.list;
@@ -56,6 +55,9 @@ class Page{
         if (button.hovering()){
             this.list.forEach(element => {
                 element.delete()
+                localStorage.setItem('clientAge',
+                    document.getElementById("in-text").value
+                    );
                 $("#in-text").css('opacity', 1).slideUp('slow').animate(
                   { opacity: 0 },
                   { queue: false, duration: 'slow' }
